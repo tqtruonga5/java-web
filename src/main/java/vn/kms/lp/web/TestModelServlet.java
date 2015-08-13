@@ -1,4 +1,4 @@
-package vn.kms.lp.web.servlet;
+package vn.kms.lp.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vn.kms.lp.web.dao.TestDAO;
-import vn.kms.lp.web.dao.impl.TestDAOMemoryImpl;
-import vn.kms.lp.web.model.TestModel;
+import vn.kms.lp.dao.TestDAO;
+import vn.kms.lp.dao.impl.TestDAOMemoryImpl;
+import vn.kms.lp.model.TestModel;
 
 /**
  * @author thanhtran

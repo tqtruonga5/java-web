@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2015 KMS Technology.
 //
-package vn.kms.lp.web.servlet.listener;
+package vn.kms.lp.web;
 
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;

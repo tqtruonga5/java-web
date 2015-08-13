@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2015 KMS Technology.
 //
-package vn.kms.lp.web.dao.impl;
+package vn.kms.lp.dao.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -9,8 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-import vn.kms.lp.web.dao.TestDAO;
-import vn.kms.lp.web.model.TestModel;
+import vn.kms.lp.dao.TestDAO;
+import vn.kms.lp.model.TestModel;
 
 /**
  * @author thanhtran

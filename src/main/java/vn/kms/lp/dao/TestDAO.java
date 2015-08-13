@@ -1,11 +1,11 @@
 //
 // Copyright (c) 2015 KMS Technology.
 //
-package vn.kms.lp.web.dao;
+package vn.kms.lp.dao;
 
 import java.util.List;
 
-import vn.kms.lp.web.model.TestModel;
+import vn.kms.lp.model.TestModel;
 
 /**
  * @author thanhtran

@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2015 KMS Technology.
 //
-package vn.kms.lp.web.filter;
+package vn.kms.lp.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;

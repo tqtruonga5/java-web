@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2015 KMS Technology.
 //
-package vn.kms.lp.web.model;
+package vn.kms.lp.model;
 
 import java.io.Serializable;
 

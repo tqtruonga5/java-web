@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2015 Health Market Science, Inc.
 //
-package vn.kms.lp.web.dao.impl;
+package vn.kms.lp.dao.impl;
 
 import java.util.List;
 
@@ -9,8 +9,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import vn.kms.lp.web.dao.TestDAO;
-import vn.kms.lp.web.model.TestModel;
+import vn.kms.lp.dao.TestDAO;
+import vn.kms.lp.dao.impl.TestDAOMemoryImpl;
+import vn.kms.lp.model.TestModel;
 
 public class TestDAOMemoryImplTest {
     private TestDAO testDAO;
