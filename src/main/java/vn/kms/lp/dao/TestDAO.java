@@ -17,4 +17,6 @@ public interface TestDAO {
     TestModel getById(Long id);
 
     List<TestModel> findByAttribute1(String attribute1);
+
+    List<TestModel> findAll();
 }

@@ -18,7 +18,7 @@ import vn.kms.lp.model.TestModel;
  * @author thanhtran
  *
  */
-@WebServlet("/testmodel")
+@WebServlet({"/testmodel/*"})
 public class TestModelServlet extends HttpServlet {
 
     private static final long serialVersionUID = 2368611017169777703L;
@@ -32,15 +32,15 @@ public class TestModelServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            Long id = Long.parseLong(request.getParameter("testModelId").toString());
-            TestModel model = testDAO.getById(id);
-            request.setAttribute("model", model);
-        } catch (Exception ignore) {
-            // Ignore all exception
+        String pathInfo = request.getPathInfo();
+        if (pathInfo != null) {
+            String[] pathParts = pathInfo.split("/");
+            if ("list".equals(pathParts[1])) {
+                doGetList(request, response);
+                return;
+            }
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/test/view.jsp");
-        dispatcher.forward(request, response);
+        doGetById(request, response);
     }
 
     @Override
@@ -55,5 +55,25 @@ public class TestModelServlet extends HttpServlet {
         } catch (Exception e) {
             out.println("Error: " + e.getMessage());
         }
+    }
+
+    private void doGetById(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            Long id = Long.parseLong(request.getParameter("testModelId").toString());
+            TestModel model = testDAO.getById(id);
+            request.setAttribute("model", model);
+        } catch (Exception ignore) {
+            // Ignore all exception
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/test/view.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void doGetList(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("list", testDAO.findAll());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/test/list.jsp");
+        dispatcher.forward(request, response);
     }
 }

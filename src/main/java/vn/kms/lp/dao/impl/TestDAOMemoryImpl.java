@@ -3,6 +3,7 @@
 //
 package vn.kms.lp.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,10 +43,13 @@ public class TestDAOMemoryImpl implements TestDAO {
 
     @Override
     public List<TestModel> findByAttribute1(String attribute1) {
-        return data.values()
-                .stream()
-                .filter(testModel -> attribute1.equals(testModel.getAttribute1()))
+        return data.values().stream().filter(testModel -> attribute1.equals(testModel.getAttribute1()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TestModel> findAll() {
+        return new ArrayList<TestModel>(data.values());
     }
 
     public synchronized static final TestDAO getInstance() {
