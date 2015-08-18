@@ -1,38 +1,34 @@
-Welcome!
+Welcome to Flyway.
+------------------
+Database Migrations Made Easy.
 
-This is an iBATIS Migration repository.  You can specify the repository
-directory when running migrations using the --path=<repos-directory>
-option.  The default path is the current working directory ("./").
 
-The repository base directory contains three subdirectories as follows:
+Documentation
+-------------
+You can find getting started guides and reference documentation at http://flywaydb.org
 
-./drivers
 
-Place your JDBC driver .jar or .zip files in this directory.  Upon running a
-migration, the drivers will be dynamically loaded.
+Contributing
+------------
+Here is the info on how you can contribute in various ways to the project: http://flywaydb.org/contribute/
 
-./environments
 
-In the environments folder you will find .properties files that represent
-your database instances.  By default a development.properties file is
-created for you to configure your development time database properties.
-You can also create test.properties and production.properties files.
-The environment can be specified when running a migration by using
-the --env=<environment> option (without the path or ".properties" part).
+License
+-------
+Copyright (C) 2010-2015 Axel Fontaine
 
-The default environment is "development".
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-./scripts
+http://www.apache.org/licenses/LICENSE-2.0
 
-This directory contains your migration SQL files.  These are the files
-that contain your DDL to both upgrade and downgrade your database
-structure.  By default, the directory will contain the script to
-create the changelog table, plus one empty "first" migration script.
-To create a new migration script, use the "new" command.  To run
-all pending migrations, use the "up" command.  To undo the last
-migration applied, use the "down" command etc.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-For more information about commands and options, run the ibatis
-migration script with the --help option.
 
-Enjoy.
+
+Flyway is a registered trademark of Boxfuse GmbH.

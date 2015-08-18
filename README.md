@@ -12,57 +12,17 @@ Checkout JavaWebIntroduction project
 
 Create fresh database for the project in case you don't have one. This is for developers to recreate project database environment for development and debugging
 
-* Ensure an Oracle user/schema has been created
-* Update 'url', 'username' and 'password' properties in /src/main/resources/db/environments/development.properties.
-
-```
-$ mvn migration:bootstrap
-```
+* Ensure a user/schema has been created
+* Update 'url', 'username' and 'password' properties in /src/main/resources/db/environments/flyway.properties.
 
 Create your SQL files for your new feature or fix
 
-```
-$ mvn migration:new -Dmigration.description="your_description_goes_here"
-```
-
-A new SQL file named `<timestamp>_your_description_goes_here.sql` will be created in expense-manager/database/src/main/resources/myBatis/scripts folder.
-Please follow instructions inside the script in order to create proper upgrade & downgrade scripts.
-Please be noted that SQL script delimiter is `/` and is defined in `database/main/resources/myBatis/environments/*.properties`.
+Create new file `V<timestamp>__your_description_goes_here.sql` in /src/main/resources/db/scripts folder.
 
 Update your local development database with SQL files created above
 
 ```
-$ mvn migration:up
+$ mvn flyway:migrate
 ```
 
-If you want to downgrade the last changes of the current database, run
-
-```
-$ mvn migration:down
-```
-
-## As a deployer, please follow these steps for database migration
-
-Create fresh database for project in case you don't have one. This is for deployers to create a fresh project database environment for Testing or Production.
-
-* Ensure an Oracle user/schema has been created
-* Update 'url', 'username' and 'password' properties in `/src/main/resources/db/environments/<your-environment>.properties`. The '<your-environment>' is probably 'production' or 'testing'
-
-```
-$ mvn migration:bootstrap
-```
-
-Upgrade the current database for the release
-
-```
-$ mvn migration:up -Dmigration.env=<your-environment>
-```
-
-If you want to downgrade the last changes of the current database, run
-
-```
-$ mvn migration:down -Dmigration.env=<your-environment>
-```
-
-
-Please visit http://mybatis.googlecode.com/files/maven-migration-plugin-1.0.0-reference.pdf
+Please visit http://flywaydb.org/
