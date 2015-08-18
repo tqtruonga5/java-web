@@ -14,7 +14,7 @@
 <c:choose>
     <c:when test="${model != null}">
         Attribute1: <%= model.getAttribute1() %><br>
-        Attribute2: <%= model.getAttribute2() %>
+        Attribute2: ${model.attribute2}
     </c:when>
     <c:otherwise>
         Cannot fetch TestModel with ID = <%=request.getParameter("testModelId") %>

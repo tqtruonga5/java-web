@@ -72,7 +72,7 @@ public class TestModelServlet extends HttpServlet {
         } catch (Exception ignore) {
             // Ignore all exception
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/test/view.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/test/view.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -82,7 +82,7 @@ public class TestModelServlet extends HttpServlet {
     private void doGetList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("list", testDAO.findAll());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/test/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/test/list.jsp");
         dispatcher.forward(request, response);
     }
 }
