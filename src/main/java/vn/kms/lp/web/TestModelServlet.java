@@ -1,3 +1,6 @@
+//
+// Copyright (c) 2015 KMS Technology.
+//
 package vn.kms.lp.web;
 
 import java.io.IOException;
@@ -57,6 +60,9 @@ public class TestModelServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Fetch TestModel by id and forward to view.jsp to render
+     */
     private void doGetById(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -70,6 +76,9 @@ public class TestModelServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Fetch all TestModel and forward to list.jsp to render
+     */
     private void doGetList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("list", testDAO.findAll());
