@@ -23,9 +23,9 @@ public class TestJDBC {
             // Check necessary driver
             Class.forName("org.postgresql.Driver");
 
-            String jdbc = "jdbc:postgresql:mem:test;DB_CLOSE_ON_EXIT=false";
+            String jdbc = "jdbc:postgresql://localhost:5432/java_web_basic";
             Properties userInfo = new Properties();
-            userInfo.put("username", "postgres");
+            userInfo.put("user", "postgres");
             userInfo.put("password", "123");
 
             Connection connection = null;
