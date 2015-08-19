@@ -49,7 +49,11 @@
             <version>${jdbc.h2.version}</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${jdbc.postgres.version}</version>
+		</dependency>
     </dependencies>
 
     <build>
@@ -94,6 +98,7 @@
                         <artifactId>h2</artifactId>
                         <version>${jdbc.h2.version}</version>
                     </dependency>
+                    
                 </dependencies>
             </plugin>
         </plugins>
@@ -107,7 +112,7 @@
         <servlet.version>3.1.0</servlet.version>
         <slf4j.version>1.7.12</slf4j.version>
         <junit.version>4.12</junit.version>
-        <jdbc.postgres.version>9.1-901.jdbc4</jdbc.postgres.version>
+        <jdbc.postgres.version>9.4-1201-jdbc41</jdbc.postgres.version>
         <jdbc.h2.version>1.4.187</jdbc.h2.version>
     </properties>
 </project>

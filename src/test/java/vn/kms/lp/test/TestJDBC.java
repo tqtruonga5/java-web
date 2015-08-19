@@ -21,12 +21,12 @@ public class TestJDBC {
     public void testConnection() {
         try {
             // Check necessary driver
-            Class.forName("org.h2.Driver");
+            Class.forName("org.postgresql.Driver");
 
-            String jdbc = "jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=false";
+            String jdbc = "jdbc:postgresql:mem:test;DB_CLOSE_ON_EXIT=false";
             Properties userInfo = new Properties();
-            userInfo.put("username", "sa");
-            userInfo.put("password", "");
+            userInfo.put("username", "postgres");
+            userInfo.put("password", "123");
 
             Connection connection = null;
             PreparedStatement statement = null;
