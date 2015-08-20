@@ -13,6 +13,9 @@ import vn.kms.lp.dao.utils.PostgresDataSource;
 import vn.kms.lp.model.UserModel;
 
 public class UserDAOImpl implements UserDAO {
+    private static final Logger log = LoggerFactory.getLogger(UserDAOImpl.class);
+    private static UserDAO instance;
+    
     @Override
     public boolean validate(String username, String password) {
         boolean status = false;
@@ -40,9 +43,6 @@ public class UserDAOImpl implements UserDAO {
         }
         return status;
     }
-
-    private static final Logger log = LoggerFactory.getLogger(UserDAOImpl.class);
-    private static UserDAO instance;
 
     @Override
     public UserModel getByUsername(String username) {

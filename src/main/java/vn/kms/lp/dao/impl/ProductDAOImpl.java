@@ -9,10 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.kms.lp.dao.ProductDAO;
+import vn.kms.lp.dao.UserDAO;
 import vn.kms.lp.dao.utils.PostgresDataSource;
 import vn.kms.lp.model.ProductModel;
 
 public class ProductDAOImpl implements ProductDAO {
+    private static ProductDAO instance;
+
+    public synchronized static final ProductDAO getInstance() {
+        if (instance == null) {
+            instance = new ProductDAOImpl();
+        }
+        return instance;
+    }
 
     @Override
     public void save(ProductModel product) {
@@ -173,17 +182,54 @@ public class ProductDAOImpl implements ProductDAO {
         return products;
     }
 
-    public static void main(String[] args) {
-        ProductDAO productDAO = new ProductDAOImpl();
-        ProductModel product = productDAO.getById(1);
-        System.out.println(product.getName());
+    public List<ProductModel> searchProductByName(String name) {
+        String query = "Select * from Products where PRODUCT_NAME LIKE ?";
+        List<ProductModel> list = new ArrayList<ProductModel>();
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = PostgresDataSource.getConnection();
+            ps = connection.prepareStatement(query);
+            ps.setString(1,"%"+name+"%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductModel product = new ProductModel();
+                product.setId(rs.getInt("PRODUCT_ID"));
+                product.setName(rs.getString("PRODUCT_NAME"));
+                product.setCategory(rs.getString("PRODUCT_CATEGORY"));
+                product.setDescription(rs.getString("PRODUCT_DESC"));
+                product.setPrice(rs.getBigDecimal("PRODUCT_PRICE"));
+                System.out.println("Product Found::" + product);
+                list.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
 
-        product.setId(4);
-        product.setName("SH");
-        product.setCategory("Category1");
-        product.setDescription("Xe may Honda");
-        product.setPrice(new BigDecimal(10000000));
-        productDAO.update(product);
-        productDAO.getAll();
+    public static void main(String[] args) {
+        ProductDAOImpl productDAO = new ProductDAOImpl();
+//        ProductModel product = productDAO.getById(1);
+//        System.out.println(product.getName());
+//
+//        product.setId(4);
+//        product.setName("SH");
+//        product.setCategory("Category1");
+//        product.setDescription("Xe may Honda");
+//        product.setPrice(new BigDecimal(10000000));
+//        productDAO.update(product);
+//        productDAO.getAll();
+        
+        productDAO.searchProductByName("Air");
     }
 }

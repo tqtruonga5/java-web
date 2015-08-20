@@ -27,23 +27,21 @@ import vn.kms.lp.model.UserModel;
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException,
             IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
         UserDAO userDAO = UserDAOImpl.getInstance();
 
         if (userDAO.validate(username, password)) {
-            PrintWriter out = response.getWriter();
-            HttpSession session = request.getSession();
+            HttpSession session = req.getSession();
             session.setAttribute("username", username);
-//            out.print("Success");
             response.sendRedirect("search.jsp");
         } else {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
             PrintWriter out = response.getWriter();
             out.println("<font color=red>Either user name or password is wrong.</font>");
-            rd.include(request, response);
+            rd.include(req, response);
         }
     }
 }

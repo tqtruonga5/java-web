@@ -9,7 +9,9 @@
 <body>
      <% if(session!=null && session.getAttribute("username") != null){ %>
      <h3><%= session.getAttribute("username") %>,<a href="logout">Log Out</a></h3>
-     <%} %>
+     <%}%>
      <h1>Search Page:</h1>
+     <hr/>
+     <%@ include file="./WEB-INF/searchForm.jsp"%>
 </body>
 </html>

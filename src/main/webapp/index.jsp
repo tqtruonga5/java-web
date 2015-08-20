@@ -7,12 +7,13 @@
 <title>My first Web application</title>
 </head>
 <body>
-    <h2>Hello World</h2>
+    <h2>Welcome!</h2>
     <br>
     <h3>
         Today is:
         <%=new Date()%></h3>
 
     <%@ include file="./WEB-INF/login.jsp"%>
+    <h2><a href="search.jsp">Go to search</a></h2>
 </body>
 </html>
