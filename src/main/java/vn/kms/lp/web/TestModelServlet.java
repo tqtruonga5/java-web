@@ -21,7 +21,7 @@ import vn.kms.lp.model.TestModel;
  * @author thanhtran
  *
  */
-@WebServlet({"/testmodel/*"})
+@WebServlet({ "/testmodel/*" })
 public class TestModelServlet extends HttpServlet {
 
     private static final long serialVersionUID = 2368611017169777703L;
@@ -33,8 +33,7 @@ public class TestModelServlet extends HttpServlet {
         testDAO = TestDAOMemoryImpl.getInstance();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
         if (pathInfo != null) {
             String[] pathParts = pathInfo.split("/");
@@ -63,8 +62,8 @@ public class TestModelServlet extends HttpServlet {
     /**
      * Fetch TestModel by id and forward to view.jsp to render
      */
-    private void doGetById(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void doGetById(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
         try {
             Long id = Long.parseLong(request.getParameter("testModelId").toString());
             TestModel model = testDAO.getById(id);
@@ -79,8 +78,8 @@ public class TestModelServlet extends HttpServlet {
     /**
      * Fetch all TestModel and forward to list.jsp to render
      */
-    private void doGetList(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void doGetList(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
         request.setAttribute("list", testDAO.findAll());
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/test/list.jsp");
         dispatcher.forward(request, response);

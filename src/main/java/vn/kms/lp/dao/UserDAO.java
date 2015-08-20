@@ -8,4 +8,5 @@ import vn.kms.lp.model.UserModel;
  */
 public interface UserDAO {
     UserModel getByUsername(String username);
- }
+    boolean validate(String username, String password);
+}
