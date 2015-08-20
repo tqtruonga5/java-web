@@ -1,17 +1,20 @@
 package vn.kms.lp.model;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 public class ProductModel {
-    Long id;
+    int id;
     String name;
     String category;
     String description;
-    Long price;
+    BigDecimal price;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,12 +42,18 @@ public class ProductModel {
         this.description = description;
     }
 
-    public Long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.id + "-" + this.name + "-" + this.category + "-" + this.description + "-" + this.price;
     }
 
 }

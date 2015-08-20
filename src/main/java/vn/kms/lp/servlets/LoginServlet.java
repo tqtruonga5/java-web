@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import vn.kms.lp.dao.UserDAO;
 import vn.kms.lp.dao.impl.UserDAOImpl;
@@ -34,14 +35,15 @@ public class LoginServlet extends HttpServlet {
 
         if (userDAO.validate(username, password)) {
             PrintWriter out = response.getWriter();
-            out.print("Success");
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+//            out.print("Success");
+            response.sendRedirect("search.jsp");
         } else {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
             PrintWriter out = response.getWriter();
             out.println("<font color=red>Either user name or password is wrong.</font>");
             rd.include(request, response);
-
         }
-
     }
 }
