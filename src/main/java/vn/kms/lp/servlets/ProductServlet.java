@@ -1,9 +1,8 @@
 package vn.kms.lp.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.ProcessBuilder.Redirect;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,15 +50,17 @@ public class ProductServlet extends HttpServlet {
         } else {
             doUpdateProduct(request, response);
         }
-        response.sendRedirect("list");
+        System.out.println(getServletContext().toString());
+        response.sendRedirect(getServletContext().getContextPath()+"/search.jsp");
     }
 
     /**
-     * Fetch all TestModel and forward to list.jsp to render
+     * Fetch all Product and forward to list.jsp to render
      */
     private void doGetList(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
-        request.setAttribute("products", productDAO.getAll());
+        List<ProductModel> products = productDAO.getAll();
+        request.setAttribute("products", products);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/product/list.jsp");
         dispatcher.forward(request, response);
     }
@@ -73,7 +74,7 @@ public class ProductServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id").toString());
             ProductModel product = productDAO.getById(id);
             request.setAttribute("product", product);
-        } catch (Exception ignore) {
+        } catch (Exception e) {
             // Ignore all exception
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/product/form.jsp");
@@ -89,7 +90,7 @@ public class ProductServlet extends HttpServlet {
         productDAO.save(product);
     }
 
-    private void doUpdateProduct(HttpServletRequest request, HttpServletResponse response){
+    private void doUpdateProduct(HttpServletRequest request, HttpServletResponse response) {
         ProductModel product = new ProductModel();
         product.setId(Integer.parseInt(request.getParameter("id").toString()));
         product.setName(request.getParameter("name").toString());
@@ -97,7 +98,7 @@ public class ProductServlet extends HttpServlet {
         product.setDescription(request.getParameter("description").toString());
         product.setPrice(new BigDecimal(request.getParameter("price").toString()));
         productDAO.update(product);
-        
+
     }
 
     private void doDeleteById(HttpServletRequest request, HttpServletResponse response) throws ServletException,
@@ -108,7 +109,7 @@ public class ProductServlet extends HttpServlet {
         } catch (Exception e) {
 
         }
-        response.sendRedirect("list");
+        response.sendRedirect(getServletContext().getContextPath()+"/search.jsp");
 
     }
 }

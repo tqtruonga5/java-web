@@ -36,7 +36,7 @@
                 </select></td>
             </tr>
             <tr>
-                <td><label>Name</label></td>
+                <td><label>Description</label></td>
                 <td><input type='text'  name='description' value='${product.description}'></td>
             </tr>
             <tr>

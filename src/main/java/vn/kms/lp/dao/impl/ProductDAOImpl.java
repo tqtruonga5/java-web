@@ -1,6 +1,5 @@
 package vn.kms.lp.dao.impl;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,12 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import vn.kms.lp.dao.ProductDAO;
-import vn.kms.lp.dao.UserDAO;
 import vn.kms.lp.dao.utils.PostgresDataSource;
 import vn.kms.lp.model.ProductModel;
 
 public class ProductDAOImpl implements ProductDAO {
+    private static final Logger log = LoggerFactory.getLogger(ProductDAOImpl.class);
     private static ProductDAO instance;
 
     public synchronized static final ProductDAO getInstance() {
@@ -48,7 +50,7 @@ public class ProductDAOImpl implements ProductDAO {
                 ps.close();
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         }
     }
@@ -103,19 +105,15 @@ public class ProductDAOImpl implements ProductDAO {
             ps.setString(3, product.getDescription());
             ps.setBigDecimal(4, product.getPrice());
             ps.setInt(5, product.getId());
-            int out = ps.executeUpdate();
-            if (out != 0) {
-                System.out.println("Product updated with id=" + product.getId());
-            } else
-                System.out.println("No Product found with id=" + product.getId());
+            ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         } finally {
             try {
                 ps.close();
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         }
     }
@@ -129,26 +127,22 @@ public class ProductDAOImpl implements ProductDAO {
             connection = PostgresDataSource.getConnection();
             ps = connection.prepareStatement(query);
             ps.setLong(1, id);
-            int out = ps.executeUpdate();
-            if (out != 0) {
-                System.out.println("Product deleted with id=" + id);
-            } else
-                System.out.println("No Product found with id=" + id);
+            ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         } finally {
             try {
                 ps.close();
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         }
     }
 
     @Override
     public List<ProductModel> getAll() {
-        String query = "select * from Products";
+        String query = "select * from Products ";
         List<ProductModel> products = new ArrayList<ProductModel>();
         Connection connection = null;
         PreparedStatement ps = null;
@@ -164,71 +158,19 @@ public class ProductDAOImpl implements ProductDAO {
                 product.setCategory(rs.getString("PRODUCT_CATEGORY"));
                 product.setDescription(rs.getString("PRODUCT_DESC"));
                 product.setPrice(rs.getBigDecimal("PRODUCT_PRICE"));
-                System.out.println("Product Found::" + product);
                 products.add(product);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         } finally {
             try {
                 rs.close();
                 ps.close();
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         }
         return products;
-    }
-
-    public List<ProductModel> searchProductByName(String name) {
-        String query = "Select * from Products where PRODUCT_NAME LIKE ?";
-        List<ProductModel> list = new ArrayList<ProductModel>();
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            connection = PostgresDataSource.getConnection();
-            ps = connection.prepareStatement(query);
-            ps.setString(1,"%"+name+"%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                ProductModel product = new ProductModel();
-                product.setId(rs.getInt("PRODUCT_ID"));
-                product.setName(rs.getString("PRODUCT_NAME"));
-                product.setCategory(rs.getString("PRODUCT_CATEGORY"));
-                product.setDescription(rs.getString("PRODUCT_DESC"));
-                product.setPrice(rs.getBigDecimal("PRODUCT_PRICE"));
-                System.out.println("Product Found::" + product);
-                list.add(product);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                rs.close();
-                ps.close();
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return list;
-    }
-
-    public static void main(String[] args) {
-        ProductDAOImpl productDAO = new ProductDAOImpl();
-//        ProductModel product = productDAO.getById(1);
-//        System.out.println(product.getName());
-//
-//        product.setId(4);
-//        product.setName("SH");
-//        product.setCategory("Category1");
-//        product.setDescription("Xe may Honda");
-//        product.setPrice(new BigDecimal(10000000));
-//        productDAO.update(product);
-//        productDAO.getAll();
-        
-        productDAO.searchProductByName("Air");
     }
 }
