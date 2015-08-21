@@ -25,18 +25,17 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void save(ProductModel product) {
-        String query = "insert into Products (PRODUCT_ID, PRODUCT_NAME, PRODUCT_CATEGORY,PRODUCT_DESC,PRODUCT_PRICE) "
-                + "values (?,?,?,?,?)";
+        String query = "insert into Products (PRODUCT_NAME, PRODUCT_CATEGORY,PRODUCT_DESC,PRODUCT_PRICE) "
+                + "values (?,?,?,?)";
         Connection connection = null;
         PreparedStatement ps = null;
         try {
             connection = PostgresDataSource.getConnection();
             ps = connection.prepareStatement(query);
-            ps.setInt(1, product.getId());
-            ps.setString(2, product.getName());
-            ps.setString(3, product.getCategory());
-            ps.setString(4, product.getDescription());
-            ps.setBigDecimal(5, product.getPrice());
+            ps.setString(1, product.getName());
+            ps.setString(2, product.getCategory());
+            ps.setString(3, product.getDescription());
+            ps.setBigDecimal(4, product.getPrice());
             int out = ps.executeUpdate();
             if (out != 0) {
                 System.out.println("Employee saved with id=" + product.getId());

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-     pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="vn.kms.lp.model.ProductModel"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -11,37 +10,45 @@
 <title>Insert title here</title>
 </head>
 <body>
-     <form action="ProductServlet/${status}" method="POST">
-          <table>
-               <tr>
-                    <td><label>id</label></td>
-                    <td><input type='number' name='id'
-                         value='${model.id}'></td>
-               </tr>
-               <tr>
-                    <td><label>Name</label></td>
-                    <td><input type='text' id='name' name='name'
-                         value='${model.name}'></td>
-               </tr>
-               <tr>
-                    <td><label>By Category</label></td>
-                    <td><select name="category">
-                              <option value="category1" <c:if test="${model.category==category1}" >checked="true"</c:if> > Category1</option>
-                              <option value="category2" <c:if test="${model.category==category2}" >checked="true"</c:if>>Category2</option>
-                              <option value="category3" <c:if test="${model.category==category3}" >checked="true"</c:if>>Category3</option>
-                              <option value="category4" <c:if test="${model.category==category4}" >checked="true"</c:if>>Category4</option>
-                    </select></td>
-               </tr>
-               <tr>
-                    <td><label>Price Range </label></td>
-                    <td><input type="number" id='from' name='price' value='${model.price }'></td>
-               </tr>
-               <tr>
-                    <td>&nbsp;</td>
-                    <td><input type='submit' value='submit'></td>
-               </tr>
-          </table>
-     </form>
+<h2>Product:</h2>
+    <form action="ProductServlet" method="POST">
+        <table>
+            <tr>
+                <td><label hidden='true'>id</label></td>
+                <td><input hidden='true' type='number' name='id' value='${product.id}'></td>
+            </tr>
+            <tr>
+                <td><label>Name</label></td>
+                <td><input type='text' id='name' name='name' value='${product.name}'></td>
+            </tr>
+            <tr>
+                <td><label>By Category</label></td>
+                <td><select name="category">
+                        <option value="Smartphone" <c:if test="${product.category == 'Smartphone'}"> selected='true'</c:if>>
+                            Smartphone
+                        </option>
+                        <option value="Laptop" <c:if test="${product.category == 'Laptop'}"> selected</c:if>>Laptop</option>
+                        <option value="Motorbike" <c:if test="${product.category == 'Motorbike'}"> selected</c:if>>Motorbike</option>
+                        <option value="Mouse" <c:if test="${product.category == 'Mouse'}"> selected</c:if>>Mouse</option>
+                        <option value="Headphone" <c:if test="${product.category == 'Headphone'}"> selected</c:if>>Headphone</option>
+                        <option value="Music Player" <c:if test="${product.category == 'Music Player'}"> selected</c:if>>Music Player</option>
+                        <option value="Supercar" <c:if test="${product.category == 'Supercar'}"> selected</c:if>>Supercar</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td><label>Name</label></td>
+                <td><input type='text'  name='description' value='${product.description}'></td>
+            </tr>
+            <tr>
+                <td><label>Price</label></td>
+                <td><input type="number" name='price' value='${product.price }'></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type='submit' value='submit'></td>
+            </tr>
+        </table>
+    </form>
 
 </body>
 </html>

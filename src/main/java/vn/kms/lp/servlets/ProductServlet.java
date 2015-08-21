@@ -1,6 +1,9 @@
 package vn.kms.lp.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.ProcessBuilder.Redirect;
+import java.math.BigDecimal;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +16,7 @@ import vn.kms.lp.dao.ProductDAO;
 import vn.kms.lp.dao.impl.ProductDAOImpl;
 import vn.kms.lp.model.ProductModel;
 
-@WebServlet({ "/productServlet/*" })
+@WebServlet({ "/ProductServlet/*" })
 public class ProductServlet extends HttpServlet {
 
     private static final long serialVersionUID = -1449661662263439546L;
@@ -25,28 +28,30 @@ public class ProductServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = req.getPathInfo();
-        System.out.println(pathInfo);
+    protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+        String pathInfo = request.getPathInfo();
         if (pathInfo != null) {
             String[] pathParts = pathInfo.split("/");
             if ("list".equals(pathParts[1])) {
-                doGetList(req, resp);
+                doGetList(request, resp);
+                return;
+            } else if ("delete".equals(pathParts[1])) {
+                doDeleteById(request, resp);
                 return;
             }
         }
-        doGetById(req, resp);
+        doGetById(request, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = req.getPathInfo();
-        System.out.println(pathInfo);
-        if (pathInfo != null) {
-            String[] pathParts = pathInfo.split("/");
-            if ("update".equals(pathParts[1]))
-                ;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        if (request.getParameter("id").equals("")) {
+            doAddProduct(request, response);
+        } else {
+            doUpdateProduct(request, response);
         }
+        response.sendRedirect("list");
     }
 
     /**
@@ -66,9 +71,8 @@ public class ProductServlet extends HttpServlet {
             IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id").toString());
-            System.out.println(id);
-            ProductModel model = productDAO.getById(id);
-            request.setAttribute("model", model);
+            ProductModel product = productDAO.getById(id);
+            request.setAttribute("product", product);
         } catch (Exception ignore) {
             // Ignore all exception
         }
@@ -76,4 +80,35 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private void doAddProduct(HttpServletRequest request, HttpServletResponse response) {
+        ProductModel product = new ProductModel();
+        product.setName(request.getParameter("name").toString());
+        product.setCategory(request.getParameter("category").toString());
+        product.setDescription(request.getParameter("description").toString());
+        product.setPrice(new BigDecimal(request.getParameter("price").toString()));
+        productDAO.save(product);
+    }
+
+    private void doUpdateProduct(HttpServletRequest request, HttpServletResponse response){
+        ProductModel product = new ProductModel();
+        product.setId(Integer.parseInt(request.getParameter("id").toString()));
+        product.setName(request.getParameter("name").toString());
+        product.setCategory(request.getParameter("category").toString());
+        product.setDescription(request.getParameter("description").toString());
+        product.setPrice(new BigDecimal(request.getParameter("price").toString()));
+        productDAO.update(product);
+        
+    }
+
+    private void doDeleteById(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        try {
+            int id = Integer.parseInt(request.getParameter("id").toString());
+            productDAO.deleteById(id);
+        } catch (Exception e) {
+
+        }
+        response.sendRedirect("list");
+
+    }
 }

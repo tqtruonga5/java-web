@@ -15,5 +15,6 @@
 
     <%@ include file="./WEB-INF/login.jsp"%>
     <h2><a href="search.jsp">Go to search</a></h2>
+    <h2><a href="ProductServlet/list">Products</a> </h2>
 </body>
 </html>

@@ -10,24 +10,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-     <%
-         List<ProductModel> products = (List) request.getAttribute("products");
-     %>
      <h2>Product - List</h2>
+     <a href="add">Add New Product</a>
+     <hr>
      <table>
           <tr>
                <th>ID</th>
                <th>Name</th>
                <th>Category</th>
+               <th>Description</th>
                <th>Price</th>
                <th>&nbsp;</th>
                <th>&nbsp;</th>
           </tr>
-          <c:forEach var="entry" items="<%=products%>">
+          <c:forEach var="entry" items="${products}">
                <tr>
                     <td><c:out value="${entry.id}" /></td>
                     <td><c:out value="${entry.name}" /></td>
                     <td><c:out value="${entry.category}" /></td>
+                    <td><c:out value="${entry.description}" /></td>
                     <td><c:out value="${entry.price}" /></td>
                     <td><a href='update?id=${entry.id}'>Edit</a></td>
                     <td><a href='delete?id=${entry.id}'>Delete</a></td>
