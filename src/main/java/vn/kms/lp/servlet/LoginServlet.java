@@ -1,4 +1,4 @@
-package vn.kms.lp.servlets;
+package vn.kms.lp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,26 +15,17 @@ import vn.kms.lp.dao.UserDAO;
 import vn.kms.lp.dao.impl.UserDAOImpl;
 import vn.kms.lp.model.UserModel;
 
-//@WebServlet(description = "Login Servlet", 
-//            urlPatterns = { "/LoginServlet" }, 
-//            initParams = {
-//                @WebInitParam(name = "user", value = "Pankaj"), 
-//                @WebInitParam(name = "password", value = "journaldev") 
-//            }
-//)
-
 @WebServlet({ "/LoginServlet" })
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException,
-            IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         UserDAO userDAO = UserDAOImpl.getInstance();
 
         if (userDAO.validate(username, password)) {
-            HttpSession session = req.getSession();
+            HttpSession session = req.getSession(true);
             session.setAttribute("username", username);
             response.sendRedirect("search.jsp");
         } else {

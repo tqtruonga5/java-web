@@ -1,4 +1,4 @@
-package vn.kms.lp.servlets;
+package vn.kms.lp.servlet;
 
 import java.io.IOException;
 import java.math.BigDecimal;

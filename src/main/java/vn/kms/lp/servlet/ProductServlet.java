@@ -1,4 +1,4 @@
-package vn.kms.lp.servlets;
+package vn.kms.lp.servlet;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -50,7 +50,6 @@ public class ProductServlet extends HttpServlet {
         } else {
             doUpdateProduct(request, response);
         }
-        System.out.println(getServletContext().toString());
         response.sendRedirect(getServletContext().getContextPath()+"/search.jsp");
     }
 
@@ -98,7 +97,6 @@ public class ProductServlet extends HttpServlet {
         product.setDescription(request.getParameter("description").toString());
         product.setPrice(new BigDecimal(request.getParameter("price").toString()));
         productDAO.update(product);
-
     }
 
     private void doDeleteById(HttpServletRequest request, HttpServletResponse response) throws ServletException,
