@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 @WebListener
-public class SessionListener implements ServletContextListener, ServletContextAttributeListener,
-        HttpSessionListener, HttpSessionAttributeListener {
+public class SessionListener implements ServletContextListener, ServletContextAttributeListener, HttpSessionListener,
+        HttpSessionAttributeListener {
     private static int totalActiveSessions = 0;
 
     public static int getTotalActiveSessions() {
@@ -26,7 +26,7 @@ public class SessionListener implements ServletContextListener, ServletContextAt
 
     @Override
     public void attributeRemoved(HttpSessionBindingEvent event) {
-        totalActiveSessions--;
+
     }
 
     @Override
@@ -42,6 +42,9 @@ public class SessionListener implements ServletContextListener, ServletContextAt
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         System.out.println("destroy");
+        if (totalActiveSessions > 0) {
+            totalActiveSessions--;
+        }
     }
 
     @Override
