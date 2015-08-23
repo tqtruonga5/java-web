@@ -1,6 +1,5 @@
 package vn.kms.lp.dao.impl;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,9 +26,40 @@ public class SearchProductDAOImpl implements SearchProductDAO {
     }
 
     @Override
-    public List<ProductModel> searchByFeatures(String name, String category, BigDecimal fromPrice, BigDecimal toPrice,
+    public List<ProductModel> searchByFeatures(String name, String category, String fromPrice, String toPrice,
             String orderBy) {
-        String query = "select * from Products where PRODUCT_NAME LIKE ? and PRODUCT_CATEGORY LIKE ? and PRODUCT_PRICE between ? and ? order by "+orderBy;
+        StringBuilder queryBuilder = new StringBuilder("Select * from Products ");
+        boolean mixConditions = false;
+        if (!"".equals(name)) {
+            if (mixConditions) {
+                queryBuilder.append(" and ");
+            } else {
+                queryBuilder.append(" where ");
+            }
+            queryBuilder.append(" Product_name like '%" + name + "%'");
+            mixConditions = true;
+        }
+        if (!"".equals(category)) {
+            if (mixConditions) {
+                queryBuilder.append(" and ");
+            } else {
+                queryBuilder.append(" where ");
+            }
+            queryBuilder.append(" Product_category = '" + category+"'");
+            mixConditions = true;
+        }
+        if (!"".equals(fromPrice) && !"".equals(toPrice)) {
+            if (mixConditions) {
+                queryBuilder.append(" and ");
+            } else {
+                queryBuilder.append(" where ");
+            }
+            queryBuilder.append(" Product_price between " + fromPrice + " and " + toPrice);
+        }
+        if (!"".equals(orderBy)) {
+            queryBuilder.append(" order by " + orderBy);
+        }
+        
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -37,14 +67,7 @@ public class SearchProductDAOImpl implements SearchProductDAO {
 
         try {
             connection = PostgresDataSource.getConnection();
-            ps = connection.prepareStatement(query);
-
-            ps.setString(1, "%" + name + "%");
-            ps.setString(2, "%" + category + "%");
-            ps.setBigDecimal(3, fromPrice);
-            ps.setBigDecimal(4, toPrice);
-//            ps.setString(5, orderBy);
-
+            ps = connection.prepareStatement(queryBuilder.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
                 ProductModel product = new ProductModel();

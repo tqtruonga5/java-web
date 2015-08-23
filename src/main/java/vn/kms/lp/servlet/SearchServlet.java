@@ -31,16 +31,16 @@ public class SearchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ProductModel> products = Collections.emptyList();
-        
+
         String name = req.getParameter("name");
         String category = req.getParameter("category");
-        BigDecimal fromPrice = new BigDecimal(req.getParameter("price-from").toString());
-        BigDecimal toPrice = new BigDecimal(req.getParameter("price-to").toString());
+        String fromPrice = req.getParameter("price-from");
+        String toPrice = req.getParameter("price-to");
         String orderBy = req.getParameter("order-by");
-        
-        System.out.println(name +" "+category +" " + fromPrice + " "+ toPrice +" "+orderBy);
-        
-        products = searchProductDAO.searchByFeatures(name, category, fromPrice, toPrice,orderBy);
+
+//        System.out.println(name + " " + category + " " + fromPrice + " " + toPrice + " " + orderBy);
+
+        products = searchProductDAO.searchByFeatures(name, category, fromPrice, toPrice, orderBy);
         req.setAttribute("products", products);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/search.jsp");
         dispatcher.forward(req, resp);
