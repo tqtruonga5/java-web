@@ -1,4 +1,5 @@
 
+<%@page import="vn.kms.lp.web.utils.CategoryConfiguration"%>
 <form method='POST' action='SearchServlet'>
     <table>
         <tr>
@@ -8,13 +9,18 @@
         <tr>
             <td><label>By Category</label></td>
             <td><select name='category'>
-                    <option value='Smartphone'>Smartphone</option>
-                    <option value='Laptop'>Laptop</option>
-                    <option value='Motorbike'>Motorbike</option>
-                    <option value='Mouse'>Mouse</option>
-                    <option value='Headphone'>Headphone</option>
-                    <option value='Music Player'>Music Player</option>
-                    <option value='Supercar'>Supercar</option>
+                <%for(String item : CategoryConfiguration.getAllCategories()) {%>
+                    <option value="<%=item%>"><%=item %></option>
+                
+                <%} %>
+                
+<!--                     <option value='Smartphone'>Smartphone</option> -->
+<!--                     <option value='Laptop'>Laptop</option> -->
+<!--                     <option value='Motorbike'>Motorbike</option> -->
+<!--                     <option value='Mouse'>Mouse</option> -->
+<!--                     <option value='Headphone'>Headphone</option> -->
+<!--                     <option value='Music Player'>Music Player</option> -->
+<!--                     <option value='Supercar'>Supercar</option> -->
             </select></td>
         </tr>
         <tr>

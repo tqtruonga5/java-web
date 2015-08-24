@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="vn.kms.lp.model.ProductModel"%>
+<%@ page import="vn.kms.lp.web.utils.CategoryConfiguration"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -24,15 +25,15 @@
             <tr>
                 <td><label>By Category</label></td>
                 <td><select name="category">
-                        <option value="Smartphone" <c:if test="${product.category == 'Smartphone'}"> selected='true'</c:if>>
-                            Smartphone
+                
+                    <%for(String item : CategoryConfiguration.getAllCategories()) {%>
+                    <%pageContext.setAttribute("currentCategory",item); %>
+                        <option value="<%=item%>" 
+                                <c:if test="${product.category == currentCategory}"> selected='true'</c:if>>
+                        <%= item %>
                         </option>
-                        <option value="Laptop" <c:if test="${product.category == 'Laptop'}"> selected</c:if>>Laptop</option>
-                        <option value="Motorbike" <c:if test="${product.category == 'Motorbike'}"> selected</c:if>>Motorbike</option>
-                        <option value="Mouse" <c:if test="${product.category == 'Mouse'}"> selected</c:if>>Mouse</option>
-                        <option value="Headphone" <c:if test="${product.category == 'Headphone'}"> selected</c:if>>Headphone</option>
-                        <option value="Music Player" <c:if test="${product.category == 'Music Player'}"> selected</c:if>>Music Player</option>
-                        <option value="Supercar" <c:if test="${product.category == 'Supercar'}"> selected</c:if>>Supercar</option>
+                    
+                    <%} %>
                 </select></td>
             </tr>
             <tr>

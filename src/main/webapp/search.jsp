@@ -25,5 +25,7 @@
      <%@ include file="./WEB-INF/searchForm.jsp"%>
      <hr/>
      <%@ include file="./WEB-INF/pages/product/list.jsp" %>
+     <hr/>
+     <a href="uploadFilePage.jsp">Upload File</a>
 </body>
 </html>
