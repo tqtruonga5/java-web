@@ -48,7 +48,7 @@ public class ProductDAOImpl implements ProductDAO {
         } finally {
             try {
                 ps.close();
-                connection.close();
+                PostgresDataSource.returnConnectionToPool(connection);
             } catch (SQLException e) {
                 log.error(e.getMessage(), e);
             }
@@ -82,9 +82,9 @@ public class ProductDAOImpl implements ProductDAO {
             e.printStackTrace();
         } finally {
             try {
-                rs.close();
                 ps.close();
-                connection.close();
+//                connection.close();
+                PostgresDataSource.returnConnectionToPool(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

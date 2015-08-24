@@ -4,8 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -18,6 +16,7 @@ public class PostgresDataSource {
     private static String url;
     private static String user;
     private static String password;
+    private static DBConnectionManager connectionManager;
 
     static {
         Properties properties = new Properties();
@@ -29,6 +28,7 @@ public class PostgresDataSource {
             url = properties.getProperty("url");
             user = properties.getProperty("user");
             password = properties.getProperty("password");
+            connectionManager = new DBConnectionManager(driver, url, user, password);
         } catch (FileNotFoundException e) {
             log.error(e.getMessage(), e);
         } catch (IOException e) {
@@ -39,15 +39,10 @@ public class PostgresDataSource {
     }
 
     public static Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName(driver);
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            log.error("Can not open connection to DB.", e);
-        } catch (ClassNotFoundException e) {
-            log.error(e.getMessage(), e);
-        }
-        return connection;
+        return connectionManager.getConnectionFromPool();
+    }
+
+    public static void returnConnectionToPool(Connection connection) {
+        connectionManager.returnConnectionToPool(connection);
     }
 }

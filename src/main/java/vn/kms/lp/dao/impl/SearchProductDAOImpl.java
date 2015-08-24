@@ -84,7 +84,7 @@ public class SearchProductDAOImpl implements SearchProductDAO {
             try {
                 rs.close();
                 ps.close();
-                connection.close();
+                PostgresDataSource.returnConnectionToPool(connection);
             } catch (SQLException e) {
                 log.error(e.getMessage(), e);
             }
