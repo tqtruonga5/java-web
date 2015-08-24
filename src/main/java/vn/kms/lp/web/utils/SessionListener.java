@@ -36,12 +36,10 @@ public class SessionListener implements ServletContextListener, ServletContextAt
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        System.err.println("create ....");
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        System.out.println("destroy");
         if (totalActiveSessions > 0) {
             totalActiveSessions--;
         }

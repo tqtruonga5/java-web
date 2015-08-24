@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import vn.kms.lp.dao.UserDAO;
 import vn.kms.lp.dao.impl.UserDAOImpl;
 import vn.kms.lp.model.UserModel;
+import vn.kms.lp.web.utils.MD5Hashing;
 
 @WebServlet({ "/LoginServlet" })
 public class LoginServlet extends HttpServlet {
@@ -21,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        String password = MD5Hashing.getHashedPassword(req.getParameter("password"));
         UserDAO userDAO = UserDAOImpl.getInstance();
 
         if (userDAO.validate(username, password)) {
