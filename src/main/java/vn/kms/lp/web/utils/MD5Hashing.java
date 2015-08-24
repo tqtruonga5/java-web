@@ -23,14 +23,9 @@ private static final Logger log = LoggerFactory.getLogger(MD5Hashing.class);
                 }                    
                 hexString.append(hex);
             }
-            System.out.println("Digest(in hex format):: " + hexString.toString());
         } catch (NoSuchAlgorithmException e) {
             log.error(e.getMessage(),e);
         }
         return hexString.toString();
-    }
-    
-    public static void main(String[] args) {
-        MD5Hashing.getHashedPassword("123");
     }
 }

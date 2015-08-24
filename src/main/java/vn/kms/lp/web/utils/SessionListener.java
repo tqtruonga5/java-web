@@ -21,7 +21,9 @@ public class SessionListener implements ServletContextListener, ServletContextAt
 
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
-        totalActiveSessions++;
+        if ("username".equals(event.getName())) {
+            totalActiveSessions++;
+        }
     }
 
     @Override
@@ -40,7 +42,8 @@ public class SessionListener implements ServletContextListener, ServletContextAt
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        if (totalActiveSessions > 0) {
+        System.out.println(se.getSession().getAttribute("username"));
+        if (totalActiveSessions > 0 && null != se.getSession().getAttribute("username")) {
             totalActiveSessions--;
         }
     }

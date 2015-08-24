@@ -11,7 +11,7 @@
      <%
          if(session!=null && session.getAttribute("username") != null){
      %>
-     <h3>Hi <%=session.getAttribute("username")%>,<a href="logout">Log Out</a></h3>
+     <h3>Hi <%=session.getAttribute("username")%>,<a href="LogoutServlet">Log Out</a></h3>
      <%
          } else{
      %>

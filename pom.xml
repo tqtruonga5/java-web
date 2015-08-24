@@ -50,10 +50,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>${jdbc.postgres.version}</version>
-		</dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${jdbc.postgres.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -98,7 +98,7 @@
                         <artifactId>h2</artifactId>
                         <version>${jdbc.h2.version}</version>
                     </dependency>
-                    
+
                 </dependencies>
             </plugin>
         </plugins>

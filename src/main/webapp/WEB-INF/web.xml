@@ -17,6 +17,6 @@
 	</context-param>
 
 	<session-config>
-		<session-timeout>20</session-timeout>
+		<session-timeout>5</session-timeout>
 	</session-config>
 </web-app>
